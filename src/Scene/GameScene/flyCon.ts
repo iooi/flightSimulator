@@ -401,12 +401,26 @@ export class FlyCon{
               this.character.moveWithCollisions(forword);
            } */
            
+           // console.log('-------', this.display.cameraBox.rotation.x, this.display.cameraBox.rotation.y, this.display.cameraBox.rotation.z);
 
           
            this.rect3.top=(-1460-1800*this.display.cameraBox.rotation.x/(Math.PI*2))+"px";
-            if(this.display.cameraBox.rotation.z>0){
-               // console.log("2223355")
+            if(this.display.cameraBox.rotation.z == 0.0){
+              console.log("$$$$$$")
             }
+            else if(this.display.cameraBox.rotation.z >0.0){
+               console.log("<----", this.display.cameraBox.rotation.z)
+            } else {
+              console.log("---->", this.display.cameraBox.rotation.z)
+            }
+
+            $.post("http://10.8.110.255:5000/motion",
+                  {angle: this.display.cameraBox.rotation.z }
+            );
+              // chained = request.then(function( data ) {
+                
+              // });
+            ​
     
             var forword=new BABYLON.Vector3(this.character.forward.x*2*this.times*this.flySpeed,this.character.forward.y*2*this.times*this.flySpeed,this.character.forward.z*2*this.times*this.flySpeed)
      
@@ -978,7 +992,7 @@ export class FlyCon{
     private wingsUpdate(){
              //  this.character.rotation.y=
              if(this._s>this.moveX){
-             //   console.log("大")
+               console.log("大")
                 if(this.flayState["右翼"]!="up-go"){
                     this.setMeshVal(this.scene.getMeshByName("右翼"),"up-go",1)
                 }
@@ -989,17 +1003,18 @@ export class FlyCon{
             }
     
             if(this._s<this.moveX){
+              console.log("小")
                 if(this.flayState["右翼"]!="down-go"){
                     this.setMeshVal(this.scene.getMeshByName("右翼"),"down-go",1)
                 }
-              //  console.log("小")
+               
                 if(this.flayState["左翼"]!="up-go"){
                     this.setMeshVal(this.scene.getMeshByName("左翼"),"up-go",1)
                 }
             }
     
             if(this._s==this.moveX){
-               
+                  console.log("中 ", this.flayState, this.character)
                 if(this.flayState["右翼"]=="down-go"){
                     if(this.flayState["右翼"]!="down-back"){
                      //   console.log("中2")
@@ -1017,14 +1032,14 @@ export class FlyCon{
                // console.log("小")
                if(this.flayState["左翼"]=="down-go"){
                     if(this.flayState["左翼"]!="down-back"){
-                      //  console.log("中2")
+                       console.log("中2")
                         this.setMeshVal(this.scene.getMeshByName("左翼"),"down-back",1)
                     }
                }
     
                if(this.flayState["左翼"]=="up-go"){
                     if(this.flayState["左翼"]!="up-back"){
-                     //   console.log("中2")
+                     console.log("中2")
                         this.setMeshVal(this.scene.getMeshByName("左翼"),"up-back",1)
                     }
                 }
