@@ -136,6 +136,7 @@ export class FireCon{
         setInterval(()=>{
             if(this.freeState){
                 this.musics.qiang.play()
+                $.post("http://10.8.110.255:5000/viber");
                // this.musics.qiang.setVolume(1)
                 var ram=Math.random()/100;
                 if(this.j<=this.bullets.length-1){
